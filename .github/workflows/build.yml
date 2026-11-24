@@ -1,0 +1,53 @@
+# Finnish website: extracts finnish-website.zip and publishes it on GitHub Pages.
+# Put this file at  .github/workflows/build.yml  in the website repository.
+name: Deploy Finnish website
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "finnish-website.zip"
+      - ".github/workflows/build.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract finnish-website.zip
+        run: |
+          test -f finnish-website.zip || { echo "finnish-website.zip not found in the repository root"; exit 1; }
+          rm -rf _site && mkdir _site
+          unzip -q finnish-website.zip -d _site
+          # if the zip contains one top-level folder, move its contents up
+          if [ ! -f _site/index.html ]; then
+            inner=$(find _site -maxdepth 2 -name index.html | head -n1 | xargs -r dirname)
+            [ -n "$inner" ] || { echo "index.html not found in the zip"; exit 1; }
+            mv "$inner"/* "$inner"/.[!.]* _site/ 2>/dev/null || true
+          fi
+          touch _site/.nojekyll
+          find _site -maxdepth 2 | head -40
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
