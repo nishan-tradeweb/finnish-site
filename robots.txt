@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nishan-tradeweb.github.io/finnish-site/sitemap.xml

@@ -1,0 +1,46 @@
+{
+  "id": "./",
+  "name": "finnish — Write. That’s it.",
+  "short_name": "finnish",
+  "description": "A screenwriting studio for Android, iPhone, Windows and Mac.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#e6e7e9",
+  "theme_color": "#e6e7e9",
+  "categories": [
+    "productivity",
+    "utilities"
+  ],
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Help Centre",
+      "url": "docs.html"
+    },
+    {
+      "name": "Download",
+      "url": "index.html#download"
+    }
+  ]
+}
